@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { problems } from '@/data/problems';
 import { useProgressStore } from '@/stores/progressStore';
-import { Code2, Search, Filter, CheckCircle2, Circle } from 'lucide-react';
+import { Code2, Search, CheckCircle2, Circle } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 export default function ProblemsPage() {

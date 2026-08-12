@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { topics } from '@/data/topics';
 import { useProgressStore } from '@/stores/progressStore';
-import { BookOpen, CheckCircle2, ChevronRight, Play } from 'lucide-react';
+import { BookOpen, CheckCircle2, ChevronRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 export default function LearnPage() {

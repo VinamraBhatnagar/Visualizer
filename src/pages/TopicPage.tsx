@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { topics } from '@/data/topics';
-import { ArrowLeft, Play, AlertTriangle, BookOpen, Clock } from 'lucide-react';
+import { ArrowLeft, Play, AlertTriangle, Clock } from 'lucide-react';
 import { useProgressStore } from '@/stores/progressStore';
 
 export default function TopicPage() {
