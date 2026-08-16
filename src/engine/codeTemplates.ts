@@ -114,6 +114,115 @@ for (let i = 1; i < n; i++) {
 __log('🎉 Array is fully sorted: [' + arr.toArray() + ']');`,
   },
 
+  'merge-sort': {
+    name: 'Merge Sort',
+    code: `// Merge Sort — uses the CodePulse tracing API
+const arr = __traceArray('arr', [12, 11, 13, 5, 6, 7]);
+__log('Initial array for Merge Sort: [' + arr.toArray() + ']');
+
+function merge(l, m, r) {
+  const n1 = m - l + 1;
+  const n2 = r - m;
+
+  const L = [];
+  const R = [];
+
+  for (let i = 0; i < n1; ++i) L[i] = arr.get(l + i);
+  for (let j = 0; j < n2; ++j) R[j] = arr.get(m + 1 + j);
+
+  __setPointer('L', l);
+  __setPointer('mid', m);
+  __setPointer('R', r);
+  __log('Merging subarrays: [' + L + '] and [' + R + ']');
+
+  let i = 0, j = 0, k = l;
+  while (i < n1 && j < n2) {
+    __setPointer('k', k);
+    if (L[i] <= R[j]) {
+      arr.__raw[k] = L[i];
+      __addStep(0, 'Placed ' + L[i] + ' at index ' + k, [{ type: 'ASSIGN', target: 'arr', indices: [k] }]);
+      i++;
+    } else {
+      arr.__raw[k] = R[j];
+      __addStep(0, 'Placed ' + R[j] + ' at index ' + k, [{ type: 'ASSIGN', target: 'arr', indices: [k] }]);
+      j++;
+    }
+    k++;
+  }
+
+  while (i < n1) {
+    arr.__raw[k] = L[i];
+    __addStep(0, 'Copied remaining ' + L[i] + ' at index ' + k, [{ type: 'ASSIGN', target: 'arr', indices: [k] }]);
+    i++;
+    k++;
+  }
+
+  while (j < n2) {
+    arr.__raw[k] = R[j];
+    __addStep(0, 'Copied remaining ' + R[j] + ' at index ' + k, [{ type: 'ASSIGN', target: 'arr', indices: [k] }]);
+    j++;
+    k++;
+  }
+}
+
+function mergeSort(l, r) {
+  if (l < r) {
+    const m = Math.floor((l + r) / 2);
+    __log('Dividing: left [' + l + '..' + m + '] and right [' + (m + 1) + '..' + r + ']');
+    mergeSort(l, m);
+    mergeSort(m + 1, r);
+    merge(l, m, r);
+  }
+}
+
+mergeSort(0, arr.length - 1);
+for (let i = 0; i < arr.length; i++) arr.markSorted(i);
+__clearPointers();
+__log('🎉 Array is fully sorted: [' + arr.toArray() + ']');`,
+  },
+
+  'quick-sort': {
+    name: 'Quick Sort',
+    code: `// Quick Sort — uses the CodePulse tracing API
+const arr = __traceArray('arr', [10, 80, 30, 90, 40, 50, 70]);
+__log('Initial array for Quick Sort: [' + arr.toArray() + ']');
+
+function partition(low, high) {
+  const pivot = arr.get(high);
+  __setPointer('pivot', high);
+  __log('Pivot selected: arr[' + high + ']=' + pivot);
+
+  let i = low - 1;
+  for (let j = low; j <= high - 1; j++) {
+    __setPointer('j', j);
+    if (arr.get(j) < pivot) {
+      i++;
+      if (i !== j) {
+        arr.swap(i, j);
+      }
+    }
+  }
+  arr.swap(i + 1, high);
+  arr.markSorted(i + 1);
+  return i + 1;
+}
+
+function quickSort(low, high) {
+  if (low < high) {
+    const pi = partition(low, high);
+    __log('Partition complete at index ' + pi);
+    quickSort(low, pi - 1);
+    quickSort(pi + 1, high);
+  } else if (low === high) {
+    arr.markSorted(low);
+  }
+}
+
+quickSort(0, arr.length - 1);
+__clearPointers();
+__log('🎉 Array is fully sorted: [' + arr.toArray() + ']');`,
+  },
+
   'linear-search': {
     name: 'Linear Search',
     code: `// Linear Search — uses the CodePulse tracing API
