@@ -26,7 +26,15 @@ export default function VisualizerPage() {
   // Load default template on mount
   useEffect(() => {
     setActiveVisualizer('array');
-    if (!code || code.trim() === '' || code.includes('function twoSum')) {
+    // Load the tracing template if the current code doesn't use the tracing API.
+    // This handles: empty code, leftover problem code (twoSum), or the default
+    // editorStore code which is plain JS without instrumentation helpers.
+    const usesTracingAPI = code && (
+      code.includes('__traceArray') ||
+      code.includes('__addStep') ||
+      code.includes('__log')
+    );
+    if (!code || code.trim() === '' || !usesTracingAPI) {
       setCode(CODE_TEMPLATES['bubble-sort'].code);
     }
   }, []);
