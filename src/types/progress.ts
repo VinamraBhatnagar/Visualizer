@@ -1,4 +1,4 @@
-/** Types for progress tracking and gamification */
+import type { CollegeYear } from './curriculum';
 
 export interface UserProgress {
   xp: number;
@@ -13,6 +13,9 @@ export interface UserProgress {
   achievements: string[];
   conceptsMastered: string[];
   weakTopics: string[];
+  selectedCollegeYear?: CollegeYear;
+  solvedLeetCodeIds?: string[];
+  completedCurriculumTopicIds?: string[];
 }
 
 export interface Achievement {

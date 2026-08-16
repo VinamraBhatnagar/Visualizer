@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { CheckCircle2, Lock, Play } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CheckCircle2, Lock, Play, GraduationCap, ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 const roadmapData = [
@@ -12,11 +13,31 @@ const roadmapData = [
 
 export default function RoadmapPage() {
   return (
-    <div className="max-w-3xl mx-auto p-8 min-h-screen">
-      <div className="mb-12 text-center">
-        <h1 className="text-3xl font-bold text-surface-100 mb-4">DSA Learning Path</h1>
-        <p className="text-surface-400 max-w-lg mx-auto">
-          Follow this structured roadmap to master Data Structures and Algorithms from scratch.
+    <div className="max-w-4xl mx-auto p-8 min-h-screen space-y-10">
+      {/* College Track Callout Banner */}
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-brand-600/20 via-accent-500/10 to-surface-900 border border-brand-500/30 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+        <div className="space-y-2 max-w-xl">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+            <GraduationCap className="w-3.5 h-3.5" />
+            College Syllabus Special
+          </div>
+          <h2 className="text-xl font-bold text-surface-100">Looking for your College Year DSA Syllabus?</h2>
+          <p className="text-xs text-surface-300 leading-relaxed">
+            Follow customized 1st, 2nd, 3rd, and 4th Year learning paths with semester milestones, university lab topics, and curated LeetCode problem sets.
+          </p>
+        </div>
+        <Link
+          to="/college-track"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/25 transition-all shrink-0"
+        >
+          View College Track <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl font-bold text-surface-100">Standard DSA Skill Path</h1>
+        <p className="text-surface-400 max-w-lg mx-auto text-sm">
+          Follow this structured progression from foundational programming to advanced competitive algorithms.
         </p>
       </div>
 

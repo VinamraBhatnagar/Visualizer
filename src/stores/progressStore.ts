@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 import type { UserProgress } from '@/types/progress';
 import { LEVELS } from '@/types/progress';
 
+import type { CollegeYear } from '@/types/curriculum';
+
 interface ProgressState extends UserProgress {
   addXP: (amount: number) => void;
   completeTopic: (topicId: string) => void;
@@ -13,6 +15,9 @@ interface ProgressState extends UserProgress {
   unlockAchievement: (achievementId: string) => void;
   updateStreak: () => void;
   getLevel: () => { level: number; title: string; progress: number; color: string };
+  setSelectedCollegeYear: (year: CollegeYear) => void;
+  toggleSolvedLeetCode: (problemId: string) => void;
+  toggleCompletedCurriculumTopic: (topicId: string) => void;
 }
 
 const getToday = () => new Date().toISOString().split('T')[0];
@@ -32,6 +37,36 @@ export const useProgressStore = create<ProgressState>()(
       achievements: [],
       conceptsMastered: [],
       weakTopics: [],
+      selectedCollegeYear: 1,
+      solvedLeetCodeIds: [],
+      completedCurriculumTopicIds: [],
+
+      setSelectedCollegeYear: (year) => set({ selectedCollegeYear: year }),
+
+      toggleSolvedLeetCode: (problemId) =>
+        set((state) => {
+          const list = state.solvedLeetCodeIds || [];
+          const exists = list.includes(problemId);
+          const next = exists ? list.filter((id) => id !== problemId) : [...list, problemId];
+          // Award XP on solve
+          const xpBonus = !exists ? 25 : 0;
+          return {
+            solvedLeetCodeIds: next,
+            xp: state.xp + xpBonus,
+          };
+        }),
+
+      toggleCompletedCurriculumTopic: (topicId) =>
+        set((state) => {
+          const list = state.completedCurriculumTopicIds || [];
+          const exists = list.includes(topicId);
+          const next = exists ? list.filter((id) => id !== topicId) : [...list, topicId];
+          const xpBonus = !exists ? 50 : 0;
+          return {
+            completedCurriculumTopicIds: next,
+            xp: state.xp + xpBonus,
+          };
+        }),
 
       addXP: (amount) =>
         set((state) => {

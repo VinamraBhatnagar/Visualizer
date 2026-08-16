@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { topics } from '@/data/topics';
 import { useProgressStore } from '@/stores/progressStore';
-import { BookOpen, CheckCircle2, ChevronRight } from 'lucide-react';
+import { BookOpen, CheckCircle2, ChevronRight, GraduationCap, ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 export default function LearnPage() {
@@ -16,12 +16,22 @@ export default function LearnPage() {
   ];
 
   return (
-    <div className="p-8 max-w-6xl mx-auto min-h-screen">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold text-surface-100 mb-2">Topic Library</h1>
-        <p className="text-surface-400">
-          Master computer science concepts through interactive visualizations.
-        </p>
+    <div className="p-8 max-w-6xl mx-auto min-h-screen space-y-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-surface-100 mb-2">Topic Library</h1>
+          <p className="text-surface-400">
+            Master computer science concepts through interactive visualizations.
+          </p>
+        </div>
+        <Link
+          to="/college-track"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-brand-600/20 text-brand-400 hover:bg-brand-600/30 border border-brand-500/30 transition-all self-start md:self-auto shadow-sm"
+        >
+          <GraduationCap className="w-4 h-4" />
+          Study by College Year (1st-4th)
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
 
       <div className="space-y-12">

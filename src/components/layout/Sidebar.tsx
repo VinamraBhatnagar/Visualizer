@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Zap,
   Shapes,
+  GraduationCap,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { useProgressStore } from '@/stores/progressStore';
@@ -28,6 +29,7 @@ interface NavItem {
 
 const mainNav: NavItem[] = [
   { icon: Home, label: 'Home', path: '/' },
+  { icon: GraduationCap, label: 'College Track', path: '/college-track', badge: '1st-4th' },
   { icon: BookOpen, label: 'Learn', path: '/learn' },
   { icon: Play, label: 'Visualizer', path: '/visualizer' },
   { icon: Code2, label: 'Problems', path: '/problems' },

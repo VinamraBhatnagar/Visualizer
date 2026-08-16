@@ -7,6 +7,7 @@ import VisualizerPage from '@/pages/VisualizerPage';
 import ProblemsPage from '@/pages/ProblemsPage';
 import RoadmapPage from '@/pages/RoadmapPage';
 import DashboardPage from '@/pages/DashboardPage';
+import CollegeTrackPage from '@/pages/CollegeTrackPage';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/visualizer" element={<VisualizerPage />} />
           <Route path="/problems" element={<ProblemsPage />} />
           <Route path="/roadmap" element={<RoadmapPage />} />
+          <Route path="/college-track" element={<CollegeTrackPage />} />
           <Route path="/progress" element={<DashboardPage />} />
           
           {/* Temporary aliases for MVP */}

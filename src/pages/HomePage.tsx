@@ -13,7 +13,6 @@ import {
   Zap,
   Trophy,
   BookOpen,
-  Target,
   ChevronRight,
 } from 'lucide-react';
 
@@ -200,6 +199,12 @@ const features = [
     gradient: 'from-brand-500 to-brand-700',
   },
   {
+    icon: Trophy,
+    title: '1st - 4th College Track',
+    description: 'Year-by-year syllabus mapping and curated LeetCode problem progression from Freshman basics to Senior FAANG prep.',
+    gradient: 'from-emerald-500 to-teal-700',
+  },
+  {
     icon: Code2,
     title: 'Professional Editor',
     description: 'Write code in Java, Python, C++, or JavaScript with full syntax highlighting, autocomplete, and error detection.',
@@ -222,12 +227,6 @@ const features = [
     title: 'Recursion Unwound',
     description: 'Finally understand recursion. See the call stack build and unwind with parameters and return values at each frame.',
     gradient: 'from-warning-400 to-warning-500',
-  },
-  {
-    icon: Target,
-    title: 'Interactive Challenges',
-    description: 'Test your understanding with hands-on challenges. Earn XP, unlock achievements, and track your progress.',
-    gradient: 'from-error-400 to-error-600',
   },
 ];
 
