@@ -6,6 +6,7 @@
  */
 
 import { buildInstrumentedCode, buildTrace } from './instrumenter';
+import { executeJavaCode } from './java/javaInterpreter';
 import type { ExecutionTrace } from '@/types/execution';
 
 let currentWorker: Worker | null = null;
@@ -18,15 +19,34 @@ function terminateExisting() {
 }
 
 /**
- * Execute user JavaScript code and return an ExecutionTrace.
- *
- * 1. Instruments the code with the tracing harness
- * 2. Spins up a Web Worker
- * 3. Sends the instrumented code
- * 4. Waits for the trace result or an error
- * 5. Terminates the worker
+ * Check if the provided code looks like Java source code
  */
-export function executeCode(userCode: string): Promise<ExecutionTrace> {
+function isJavaCode(code: string): boolean {
+  return (
+    code.includes('class ') ||
+    code.includes('public static void main') ||
+    code.includes('System.out.') ||
+    /\b(public|private|protected|static|void|int|double|boolean|String)\s+[a-zA-Z0-9_$]+\s*\(/.test(code) ||
+    /int\s+[a-zA-Z0-9_$]+\[\s*\]/.test(code) ||
+    /new\s+int\[/.test(code)
+  );
+}
+
+/**
+ * Execute user code and return an ExecutionTrace.
+ * If Java code is detected, executes using the in-browser Java Execution Engine.
+ * Otherwise runs JavaScript instrumented execution.
+ */
+export async function executeCode(userCode: string): Promise<ExecutionTrace> {
+  // If Java code, execute directly with zero-annotation Java engine
+  if (isJavaCode(userCode)) {
+    try {
+      return executeJavaCode(userCode);
+    } catch (err: any) {
+      throw new Error(err?.message || 'Java execution failed.');
+    }
+  }
+
   return new Promise((resolve, reject) => {
     terminateExisting();
 

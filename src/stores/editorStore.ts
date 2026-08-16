@@ -104,8 +104,8 @@ int main() {
 export const useEditorStore = create<EditorState>()(
   persist(
     (set, get) => ({
-      code: DEFAULT_CODES.javascript,
-      language: 'javascript',
+      code: DEFAULT_CODES.java,
+      language: 'java',
       fontSize: 14,
       showMinimap: false,
       wordWrap: true,
